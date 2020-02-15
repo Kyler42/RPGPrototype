@@ -1,10 +1,15 @@
 extends KinematicBody2D
 
+
+#player speed
 export (int) var speed = 200
+
 
 var velocity = Vector2()
 onready var PlayerRaycast = get_node("PlayerRaycast")
 
+
+#movement and attack maps 
 func get_input():
 	velocity = Vector2()
 	if Input.is_action_pressed('movement_right'):
@@ -24,11 +29,14 @@ func get_input():
 		print("attack!")
 		_attack()
 
+
+#when attack button is clicked, check if it was on an enemy and move to damage
 func _attack():
 	if PlayerRaycast.is_colliding():
 		var collider = PlayerRaycast.get_collider()
 		if collider.is_in_group("enemy"):
 			collider._takedamage()
+
 
 func _physics_process(_delta):
 	get_input()

@@ -1,26 +1,30 @@
 extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var health = 6
+#total health  
+var health = 50
+#placeholder var for d20 roll
+var randdamage
 
+
+func _ready():
+	#show health label at level load
+	$HealthLabel.text = ("%0*d" % [2, health])
+
+
+#function called when player attacks this npc
 func _takedamage():
-	health -= 1
-	$HealthLabel.text = ("%0*d" % [1, health])
+	#d20 roll
+	randdamage = randi()%21+1
+	print("Damage:", randdamage)
+	#damage subtracted from health
+	health -= randdamage
+	#update health label when hit
+	$HealthLabel.text = ("%0*d" % [2, health])
 	print(health)
+	#death check
 	if health <= 0:
 		queue_free()
 	
-#func _movement():
-	
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
