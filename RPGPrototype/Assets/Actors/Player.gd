@@ -7,7 +7,7 @@ export (int) var speed = 200
 
 var velocity = Vector2()
 onready var PlayerRaycast = get_node("PlayerRaycast")
-
+var playerhealth = 10
 
 #movement and attack maps 
 func get_input():
@@ -37,6 +37,9 @@ func _attack():
 		if collider.is_in_group("enemy"):
 			collider._takedamage()
 
+func _unlucky():
+	playerhealth -= 10
+	queue_free()
 
 func _physics_process(_delta):
 	get_input()
