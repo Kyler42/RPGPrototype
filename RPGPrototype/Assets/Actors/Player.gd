@@ -39,7 +39,8 @@ func _attack():
 
 func _unlucky():
 	playerhealth -= 10
-	queue_free()
+	if playerhealth <= 0:
+		queue_free()
 
 func _physics_process(_delta):
 	get_input()
