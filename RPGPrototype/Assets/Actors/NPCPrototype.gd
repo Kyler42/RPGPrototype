@@ -97,6 +97,7 @@ func _attack_player():
 		var enemycollider = enemyraycast.get_collider()
 		if enemycollider.is_in_group("player"):
 			player._unlucky()
+			
 
 
 func _on_Escape_Area2D_body_exited(body):

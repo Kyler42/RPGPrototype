@@ -7,7 +7,8 @@ export (int) var speed = 200
 
 var velocity = Vector2()
 onready var PlayerRaycast = get_node("PlayerRaycast")
-var playerhealth = 30
+var playerhealth = 6
+var vulnerable = true
 
 #movement and attack maps 
 func get_input():
@@ -47,12 +48,20 @@ func _interact():
 			collider._talk()
 
 func _unlucky():
-	playerhealth -= 10
-	if playerhealth <= 0:
+	if vulnerable == true:
+		playerhealth -= 1
+		vulnerable = false
+		$Vulnerability_Timer.start()
+		print(playerhealth)
+		if playerhealth <= 0:
 # warning-ignore:return_value_discarded
-		get_tree().reload_current_scene()
+			get_tree().reload_current_scene()
 
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
 
+
+
+func _on_Vulnerability_Timer_timeout():
+	vulnerable = true

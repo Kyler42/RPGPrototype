@@ -43,3 +43,7 @@ current = true
 rotation = 3.14159
 enabled = true
 cast_to = Vector2( 0, -30 )
+
+[node name="Vulnerability_Timer" type="Timer" parent="."]
+wait_time = 3.0
+[connection signal="timeout" from="Vulnerability_Timer" to="." method="_on_Vulnerability_Timer_timeout"]
