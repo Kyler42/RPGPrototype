@@ -35,7 +35,6 @@ func _takedamage():
 	#update health label when hit
 	$HealthLabel.text = ("%0*d" % [2, health])
 	print("Roll:", randdamage)
-	print(health)
 	#death check
 	if health <= 0:
 		queue_free()
@@ -49,22 +48,18 @@ func _movement():
 			#right
 			velocity.x += 1
 			rotation_degrees = 90
-			print(velocity.x)
 		elif randmovement == 2:
 			#left
 			velocity.x -= 1
 			rotation_degrees = 270
-			print(velocity.x)
 		elif randmovement == 3:
 			#down
 			velocity.y += 1
 			rotation_degrees = 180
-			print(velocity.y)
 		elif randmovement == 4:
 			#up
 			velocity.y -= 1
 			rotation_degrees = 0
-			print(velocity.y)
 		velocity = velocity.normalized() * speed
 		$Timer2.start()
 	
@@ -85,22 +80,25 @@ func _physics_process(_delta):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("player"):
 		engaged = true
-		print("detected")
-		print (engaged)
 
 
 func _attack_player():
+	velocity = Vector2()
 	velocity = (player.position - position).normalized() * speed
-	print(velocity.x, velocity.y)
-	if velocity.x >= 1:
+	if velocity.x >= 50:
 		rotation_degrees = 90
-	elif velocity.x <= -1:
+	elif velocity.x <= -50:
 		rotation_degrees = 270
-	elif velocity.y >= 1:
+	elif velocity.y >= 50 && velocity.y > velocity.x:
 		rotation_degrees = 180
-	elif velocity.y <= -1:
+	elif velocity.y <= -50 && velocity.y < velocity.x:
 		rotation_degrees = 0
 	if enemyraycast.is_colliding():
 		var enemycollider = enemyraycast.get_collider()
 		if enemycollider.is_in_group("player"):
 			player._unlucky()
+
+
+func _on_Escape_Area2D_body_exited(body):
+	if body.is_in_group("player"):
+		engaged = false

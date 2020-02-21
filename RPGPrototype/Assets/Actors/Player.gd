@@ -28,8 +28,9 @@ func get_input():
 		$PlayerRaycast.rotation_degrees = 0
 	velocity = velocity.normalized() * speed
 	if Input.is_action_just_pressed('action_attack'):
-		print("attack!")
 		_attack()
+	if Input.is_action_just_pressed('action_interact'):
+		_interact()
 
 
 #when attack button is clicked, check if it was on an enemy and move to damage
@@ -38,10 +39,15 @@ func _attack():
 		var collider = PlayerRaycast.get_collider()
 		if collider.is_in_group("enemy"):
 			collider._takedamage()
+			
+func _interact():
+	if PlayerRaycast.is_colliding():
+		var collider = PlayerRaycast.get_collider()
+		if collider.is_in_group("speaker"):
+			collider._talk()
 
 func _unlucky():
 	playerhealth -= 10
-	print("hit")
 	if playerhealth <= 0:
 # warning-ignore:return_value_discarded
 		get_tree().reload_current_scene()
@@ -49,3 +55,4 @@ func _unlucky():
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
+
