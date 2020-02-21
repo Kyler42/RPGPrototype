@@ -10,8 +10,9 @@ var health = 50
 var randdamage
 var alive = true
 var randmovement
+var PlayerPosition
 var velocity = Vector2()
-export (int) var speed = 100
+export (int) var speed = 75
 var engaged = false
 
 
@@ -41,26 +42,31 @@ func _takedamage():
 
 
 func _movement():
-	velocity = Vector2()
-	randmovement = randi()%4+1
-	if randmovement == 1:
-		#right
-		velocity.x += 1
-		rotation_degrees = 90
-	elif randmovement == 2:
-		#left
-		velocity.x -= 1
-		rotation_degrees = 270
-	elif randmovement == 3:
-		#down
-		velocity.y += 1
-		rotation_degrees = 180
-	elif randmovement == 4:
-		#up
-		velocity.y -= 1
-		rotation_degrees = 0
-	velocity = velocity.normalized() * speed
-	$Timer2.start()
+	if engaged == false:
+		velocity = Vector2()
+		randmovement = randi()%4+1
+		if randmovement == 1:
+			#right
+			velocity.x += 1
+			rotation_degrees = 90
+			print(velocity.x)
+		elif randmovement == 2:
+			#left
+			velocity.x -= 1
+			rotation_degrees = 270
+			print(velocity.x)
+		elif randmovement == 3:
+			#down
+			velocity.y += 1
+			rotation_degrees = 180
+			print(velocity.y)
+		elif randmovement == 4:
+			#up
+			velocity.y -= 1
+			rotation_degrees = 0
+			print(velocity.y)
+		velocity = velocity.normalized() * speed
+		$Timer2.start()
 	
 
 func _on_Timer_timeout():
@@ -84,6 +90,16 @@ func _on_Area2D_body_entered(body):
 
 
 func _attack_player():
+	velocity = (player.position - position).normalized() * speed
+	print(velocity.x, velocity.y)
+	if velocity.x >= 1:
+		rotation_degrees = 90
+	elif velocity.x <= -1:
+		rotation_degrees = 270
+	elif velocity.y >= 1:
+		rotation_degrees = 180
+	elif velocity.y <= -1:
+		rotation_degrees = 0
 	if enemyraycast.is_colliding():
 		var enemycollider = enemyraycast.get_collider()
 		if enemycollider.is_in_group("player"):
