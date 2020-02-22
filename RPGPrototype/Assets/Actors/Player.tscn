@@ -19,7 +19,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12.8695, 16.2771 )
+extents = Vector2( 12.8695, 12.6067 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
@@ -30,10 +30,12 @@ speed = 115
 [node name="PlayerDownAnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "Down"
+frame = 1
 speed_scale = 1.5
 playing = true
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0.203911, 3.26253 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
