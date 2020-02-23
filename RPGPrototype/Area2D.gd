@@ -10,7 +10,7 @@ export(String, FILE, "*.tscn") var level_scene
 func _ready():
 	pass # Replace with function body.
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
 			if body.name == "Player":

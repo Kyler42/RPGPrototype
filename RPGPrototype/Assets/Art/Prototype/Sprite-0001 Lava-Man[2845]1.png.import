@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hilltest.png-d998d3f2a0936f5a797286e07428eb5d.stex"
+path="res://.import/Sprite-0001 Lava-Man[2845]1.png-d15140820c5165a425582141d5bc8e2d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Prototype/hilltest.png"
-dest_files=[ "res://.import/hilltest.png-d998d3f2a0936f5a797286e07428eb5d.stex" ]
+source_file="res://Assets/Art/Prototype/Sprite-0001 Lava-Man[2845]1.png"
+dest_files=[ "res://.import/Sprite-0001 Lava-Man[2845]1.png-d15140820c5165a425582141d5bc8e2d.stex" ]
 
 [params]
 

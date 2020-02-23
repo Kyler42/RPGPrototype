@@ -21,6 +21,7 @@ func _ready():
 	$HealthLabel.text = ("%0*d" % [2, health])
 	randomize()
 	$Timer.start()
+	$NPC_AnimatedSprite.stop()
 
 
 #function called when player attacks this npc
@@ -47,30 +48,32 @@ func _movement():
 		if randmovement == 1:
 			#right
 			velocity.x += 1
-			rotation_degrees = 90
+			$NPC_Raycast.rotation_degrees = 90
 		elif randmovement == 2:
 			#left
 			velocity.x -= 1
-			rotation_degrees = 270
+			$NPC_Raycast.rotation_degrees = 270
 		elif randmovement == 3:
 			#down
 			velocity.y += 1
-			rotation_degrees = 180
+			$NPC_Raycast.rotation_degrees = 180
+			$NPC_AnimatedSprite.play("walkdown")
 		elif randmovement == 4:
 			#up
 			velocity.y -= 1
-			rotation_degrees = 0
+			$NPC_Raycast.rotation_degrees = 0
 		velocity = velocity.normalized() * speed
 		$Timer2.start()
 	
 
 func _on_Timer_timeout():
 	_movement()
+	
 
 
 func _on_Timer2_timeout():
 	velocity = Vector2()
-
+	$NPC_AnimatedSprite.stop()
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
@@ -86,13 +89,17 @@ func _attack_player():
 	velocity = Vector2()
 	velocity = (player.position - position).normalized() * speed
 	if velocity.x >= 50:
-		rotation_degrees = 90
+		$NPC_Raycast.rotation_degrees = 90
+		$NPC_AnimatedSprite.stop()
 	elif velocity.x <= -50:
-		rotation_degrees = 270
+		$NPC_Raycast.rotation_degrees = 270
+		$NPC_AnimatedSprite.stop()
 	elif velocity.y >= 50 && velocity.y > velocity.x:
-		rotation_degrees = 180
+		$NPC_Raycast.rotation_degrees = 180
+		$NPC_AnimatedSprite.play("walkdown")
 	elif velocity.y <= -50 && velocity.y < velocity.x:
-		rotation_degrees = 0
+		$NPC_Raycast.rotation_degrees = 0
+		$NPC_AnimatedSprite.stop()
 	if enemyraycast.is_colliding():
 		var enemycollider = enemyraycast.get_collider()
 		if enemycollider.is_in_group("player"):
