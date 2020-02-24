@@ -9,6 +9,7 @@ var velocity = Vector2()
 onready var PlayerRaycast = get_node("PlayerRaycast")
 var playerhealth = 6
 var vulnerable = true
+var walking = false
 
 #movement and attack maps 
 func get_input():
@@ -16,17 +17,20 @@ func get_input():
 	if Input.is_action_pressed('movement_right'):
 		velocity.x += 1
 		$PlayerRaycast.rotation_degrees = 90
+		$PlayerDownAnimatedSprite.play("rightwalking")
 	if Input.is_action_pressed('movement_left'):
 		velocity.x -= 1
 		$PlayerRaycast.rotation_degrees = 270
+		$PlayerDownAnimatedSprite.play("leftwalking")
 	if Input.is_action_pressed('movement_down'):
 		velocity.y += 1
 		$PlayerRaycast.rotation_degrees = 180
-		$PlayerDownAnimatedSprite.play("Down")
-	else: $PlayerDownAnimatedSprite.stop()
+		$PlayerDownAnimatedSprite.play("frontwalking")
+	#else: $PlayerDownAnimatedSprite.stop()
 	if Input.is_action_pressed('movement_up'):
 		velocity.y -= 1
 		$PlayerRaycast.rotation_degrees = 0
+		$PlayerDownAnimatedSprite.play("backwalking")
 	velocity = velocity.normalized() * speed
 	if Input.is_action_just_pressed('action_attack'):
 		_attack()
@@ -60,6 +64,8 @@ func _unlucky():
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
+	if velocity == Vector2():
+		$PlayerDownAnimatedSprite.stop()
 
 
 

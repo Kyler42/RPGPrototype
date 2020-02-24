@@ -1,21 +1,42 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Assets/Art/Prototype/ninja guy top down frames walking[2914]1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Prototype/player draft/front/Facing Front Walking Animation2.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Actors/Player.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Art/Prototype/ninja guy top down frames walking[2914]2.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Art/Prototype/ninja guy top down frames walking[2914]3.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/Prototype/player draft/right/Right Side Walking Animation1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/Prototype/player draft/right/Right Side Walking Animation3.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/Prototype/player draft/right/Right Side Walking Animation5.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Art/Prototype/player draft/front/Facing Front Walking Animation1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Art/Prototype/player draft/front/Facing Front Walking Animation3.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Art/Prototype/player draft/left/Left Side Walking Animation3.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Art/Prototype/player draft/left/Left Side Walking Animation4.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Art/Prototype/player draft/left/Left Side Walking Animation1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Art/Prototype/player draft/left/Left Side Walking Animation2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Art/Prototype/player draft/right/Right Side Walking Animation4.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Art/Prototype/player draft/back/Back Of Head Walking Animation3.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Art/Prototype/player draft/back/Back Of Head Walking Animation2.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Art/Prototype/player draft/back/Back Of Head Walking Animation1.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 13 ) ],
 "loop": true,
-"name": "default",
-"speed": 5.0
+"name": "backwalking",
+"speed": 4.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "Down",
-"speed": 5.0
+"name": "frontwalking",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "rightwalking",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "leftwalking",
+"speed": 4.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -29,8 +50,7 @@ speed = 115
 
 [node name="PlayerDownAnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "Down"
-frame = 1
+animation = "frontwalking"
 speed_scale = 1.5
 playing = true
 
